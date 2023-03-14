@@ -1,35 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/acknowledgements.html</loc>
-    <lastmod>2023-01-27T00:14:02.438Z</lastmod>
-  </url>
-  <url>
     <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/publishing.html</loc>
-    <lastmod>2023-01-27T00:14:04.942Z</lastmod>
+    <lastmod>2023-03-14T23:02:56.376Z</lastmod>
   </url>
   <url>
-    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/customizing.html</loc>
-    <lastmod>2023-01-27T00:14:05.430Z</lastmod>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/review.html</loc>
+    <lastmod>2023-03-14T23:02:58.007Z</lastmod>
   </url>
   <url>
-    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/rmarkdown.html</loc>
-    <lastmod>2023-01-27T00:14:07.878Z</lastmod>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/ch3_hw.html</loc>
+    <lastmod>2023-03-14T23:03:12.836Z</lastmod>
   </url>
   <url>
-    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/add-content.html</loc>
-    <lastmod>2023-01-27T00:14:08.334Z</lastmod>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/ch1_hw.html</loc>
+    <lastmod>2023-03-14T23:03:22.220Z</lastmod>
   </url>
   <url>
-    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/code.html</loc>
-    <lastmod>2023-01-27T00:14:09.802Z</lastmod>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/ch1.html</loc>
+    <lastmod>2023-03-14T23:03:22.825Z</lastmod>
   </url>
   <url>
     <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/rendering.html</loc>
-    <lastmod>2023-01-27T00:14:10.298Z</lastmod>
+    <lastmod>2023-03-14T23:03:23.542Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/code.html</loc>
+    <lastmod>2023-03-14T23:03:25.866Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/acknowledgements.html</loc>
+    <lastmod>2023-03-14T23:03:27.057Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/rmarkdown.html</loc>
+    <lastmod>2023-03-14T23:03:30.270Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/ch2_hw.html</loc>
+    <lastmod>2023-03-14T23:03:36.795Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/customizing.html</loc>
+    <lastmod>2023-03-14T23:03:37.442Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/ch4_hw.html</loc>
+    <lastmod>2023-03-14T23:03:49.464Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/content/add-content.html</loc>
+    <lastmod>2023-03-14T23:03:50.368Z</lastmod>
   </url>
   <url>
     <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/index.html</loc>
-    <lastmod>2023-01-27T00:14:10.750Z</lastmod>
+    <lastmod>2023-03-14T23:03:50.938Z</lastmod>
   </url>
 </urlset>
