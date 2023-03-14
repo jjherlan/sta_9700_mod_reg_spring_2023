@@ -1,0 +1,191 @@
+---
+title: "Ch. 1 HW"
+author: "jjh"
+editor: visual
+---
+
+```{r, include = FALSE}
+require(tidyverse)
+require(car)
+```
+
+| i:       | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  |
+|----------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+| $X_{i}$: | 1   | 0   | 2   | 0   | 3   | 1   | 0   | 1   | 2   | 0   |
+| $Y_{i}$: | 16  | 9   | 17  | 12  | 22  | 13  | 8   | 15  | 19  | 11  |
+
+: Question 1.21 Airfreight breakage
+
+A substance used in biological and medical research is shipped by airfreight to users of cartons of 1,000 ampules. The data below, involving 10 shipments, were collected on the number of times the carton was transferred form one aircraft to another over the shipment route (*X*) and the number of ampules found to be broken upon arrival (*Y*). Assume that first-order regression model (1.1.) is appropriate.
+
+```{r, include = TRUE}
+airfreight <-
+  tibble(
+  x = c(1, 0, 2, 0, 3, 1, 0, 1, 2, 0),
+  y = c(16, 9, 17, 12, 22, 13, 8, 15, 19, 11)
+  )
+```
+
+```{r}
+airfreight
+```
+
+a.  Obtain the estimated regression function. Plot the estimated regression function and the data. Does a linear regression function appear to be a good fit here?
+
+```{r}
+airfreight.lm <- lm(y ~ x, data = airfreight)
+```
+
+```{r}
+airfreight.lm
+```
+
+```{r}
+summary(airfreight.lm)
+```
+
+```{r}
+Anova(airfreight.lm, type = "III")
+```
+
+The estimated regression function is $Y = 10.2 + 4X$
+
+```{r}
+ggplot(aes(x = x, y = y), data = airfreight) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = FALSE) +
+  xlab("Transfer Frequency") + 
+  ylab("Broken Ampule Frequency")
+```
+
+Based on the observation of the best fit line obtained by *least squares criterion*, the linear regression function appears to be a good fit that showed a positive linear relationship between the number of times the carton was transferred form one aircraft to another over the shipment route (*X*) and the number of ampules found to be broken upon arrival (*Y*).
+
+Furthermore, the plot shows that more cartons broke the more they were transferred.
+
+b.  Obtain a point estimate of the expected number of broken ampules when $*X* = 1$ transfer is made.
+
+**Fitted values**
+
+```{r}
+airfreight.lm$fitted.values
+```
+
+**Prediction**
+
+```{r}
+predict(airfreight.lm, data.frame(x = 1)) # m$coefficients%*%c(1,55)
+```
+
+```{r}
+airfreight.lm$coefficients%*%c(1, 1)
+```
+
+The expected number of broken ampules, when one transfer is made ($X = 1$), is **14.2**. A point estimate of the mean number of times the carton was transferred form one aircraft to another over the shipment route at $X = 1$ is $\widehat{Y} = 10.2 + 4(1) = 14.2$
+
+**Prediction**
+
+```{r}
+predict(airfreight.lm, data.frame(x = 2)) # m$coefficients%*%c(1,55)
+```
+
+```{r}
+airfreight.lm$coefficients%*%c(1, 2)
+```
+
+c.  The increase in the expected number of ampules when there are two transfers ($X = 2$) is four, **18.2**, compared the compared to the expected number of broken ampules, when one transfer is made ($X = 1$) is **14.2**. This makes sense because the slope of the model, $\beta_{1}$ is 4.
+
+d.  Verify that your fitted regression line goes through the point $(\overline{X}, \overline{Y})$.
+
+```{r}
+airfreight.lm$coefficients%*%c(1, mean(airfreight$x))
+```
+
+Mean of *x*, the number of times the carton was transferred form one aircraft to another over the shipment route.
+
+```{r, include = TRUE}
+mean(airfreight$x)
+```
+
+Mean of *y*, the number of ampules found to be broken upon arrival.
+
+```{r, include = TRUE}
+mean(airfreight$y)
+```
+
+The means of *x* and *y* are **1** and **14.2**, respectively, which the best fit line passes through as evidenced by viewing the fitted values in **R**:
+
+```{r, incliude = TRUE}
+airfreight.lm$fitted.values
+```
+
+Refer to the **Airfreight breakage** Problem 1.21.
+
+a.  Obtain a residual for the first case. What is its relation to $\epsilon_{1}$?
+
+**Properties of Residuals**
+
+```{r, include = FALSE}
+airfreight.lm$residuals
+```
+
+```{r, include = FALSE}
+sum(airfreight.lm$residuals)
+```
+
+```{r, include = FALSE}
+airfreight.lm$residuals[1]
+```
+
+The value for the first residual is **1.8**.
+
+b.  Compute $\sum \epsilon_{i}^{2}$ and **MSE**. What is estimated by **MSE**?
+
+**Estimation of error variance**
+
+```{r, include = FALSE}
+summary(airfreight.lm)$sigma^2 # MSE
+```
+
+A point estimate of $\sigma^{2}$ is *MSE* = **2.2**.
+
+Explanation of the *MSE* can be given by the sum of squares decomposition:
+
+The decomposition of the total variation of variable *Y*into two parts in order to test the significance of the regression model: (1) the variation explained by the model and (2) the residual variation.
+
+These two parts are compared using the *F* statistic.
+
+The decomposed variation is based on the sum of squared deviations form the mean, or the *sum of squares*:
+
+$SS_{tot}$ = *total sum of squares* = $SS_{tot} = \sum(Y_{i} - \widehat{Y})^2$, which describes the total variation of the variable *Y*.
+
+The *regression sum of squares*, or *model sum of squares*, is $SS_{reg}$:
+
+$SS_{reg} = \sum(\widehat{Y} - \overline{Y})^2$ represents the variation of *Y*, which is explained by the fitted regression model.
+
+The *residual sum of squared* ($SS_{E}$, also known as the *error sum of squares*), $SS_{E} = \sum(Y_{i} - \widehat{Y}_{i})^2$ corresponds to the *Y* variation not explained by the model.
+
+$SS_{tot} = SS_{reg} + SS_{E}$
+
+The *degrees of freedom* corresponding to individual estimated components of *Y* variation:
+
+$DF_{tot} = n - 1$ for *degrees of freedom* corresponding to $SS_{tot}$.
+
+$DF_{reg}$ *= number of estimated parameters - 1* for *degrees of freedom* corresponding to $SS_{reg}$.
+
+$DF_{reg}$ is therefore equal to 1 for a simple linear regression model with two estimated parameters.
+
+$DF_{E} = DF_{tot} - DF_{reg}$ for the residual sum of squares: $DF_{E}$ is therefore equal to $n - 2$ for simple linear regression.
+
+The degrees of freedom are additive, as for the sum of squares.
+
+*Mean square (MS)* values can be obtained by dividing the a sum of squares by its corresponding number of degrees of freedom, e.g., $MS_{E} = SS_{E}/DF_{E}$.
+
+If $H_{0}$ is true, i.e., when *X* and *Y* are independent, both $MS_{reg}$ and $MS_{E}$ are estimates of the variance of the dependent variable *Y*.
+
+If the values are dependent, $MS_{reg}$ increases and $MS_{E}$ decreases.
+
+The ratio $F = MS_{reg}/MS_{E}$ can therefore be used for regression model significance, with assumed *F* distribution when $H_{0}$ is correct.
+
+The *sum of squares* are also used to calculate the **coefficient of determination**, $R^{2}$.
+
+$$R^{2} = SS_{reg}/SS_{tot} = 1 - SS_{E}/SS_{tot}$$ The $R^{2}$ coefficient estimates the proportion of explained variation out of the total variation.

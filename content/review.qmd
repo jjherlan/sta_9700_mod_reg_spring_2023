@@ -1,0 +1,11 @@
+---
+title: "Statistics Review"
+author: "jjh"
+editor: visual
+---
+
+1.  
+
+**(a)** What does a row correspond to: a participant, subject, case, respondent, or something else?
+
+*Answer*

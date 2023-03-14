@@ -45,6 +45,19 @@ website:
         text: Code in your files
       - href: content/acknowledgements.qmd
         text: Acknowledgements
+      - href: content/review.qmd
+        text: Review
+      - href: content/ch1_hw.qmd
+        text: Chapter One HW
+      - href: content/ch2_hw.qmd
+        text: Chapter Two HW
+      - href: content/ch1.qmd
+        text: Chapter One
+      - href: content/ch3_hw.qmd
+        text: Chapter Three
+      - href: content/ch4_hw.qmd
+        text: Chapter Four
+
 
 format:
   html:
