@@ -1,7 +1,0 @@
----
-title: "Chapter 1"
-author: "jjh"
-editor: visual
----
-
-Do I need something here?
