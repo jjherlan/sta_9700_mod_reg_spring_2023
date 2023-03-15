@@ -54,8 +54,8 @@ confint(airfreight.lm, level = 0.99)
 
 **a.**
 
- - Simultaneous estimation of mean responses
- - Working-Hotelling procedure
+-   Simultaneous estimation of mean responses
+-   Working-Hotelling procedure
 
 ```{r}
 al = 0.05
@@ -65,11 +65,11 @@ al = 0.05
 ci.reg(airfreight.lm, data.frame(x = c(0, 1, 2)), type = "w", alpha = al)
 ```
 
-**b.**  
+**b.**
 
- - Simultaneous estimation of mean responses 
- - Bonferroni procedure
- 
+-   Simultaneous estimation of mean responses
+-   Bonferroni procedure
+
 ```{r}
 g = 3
 
@@ -77,14 +77,12 @@ g = 3
 
 ci.reg(airfreight.lm, data.frame(x = c(0, 1, 2)), type = "b", alpha = al)
 ```
- 
-
 
 **c.**
 
- - Simultaneous prediction for new observations 
- - Scheffe procedure
- 
+-   Simultaneous prediction for new observations
+-   Scheffe procedure
+
 ```{r}
 al = 0.05
 
@@ -102,5 +100,3 @@ ci.reg(airfreight.lm, data.frame(x = c(0 ,1, 2)), type = "s", alpha = al)
 ```{r}
 ci.reg(airfreight.lm, data.frame(x = c(0, 1, 2)), type = "gn", alpha = al)
 ```
-
-
