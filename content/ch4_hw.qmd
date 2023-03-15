@@ -1,5 +1,5 @@
 ---
-title: "Chapter Four HW"
+title: "Chapter Four Homework"
 author: "jjh"
 editor: visual
 ---
@@ -95,7 +95,7 @@ ci.reg(airfreight.lm, data.frame(x = c(0 ,1, 2)), type = "s", alpha = al)
 
 **d.**
 
-# Simultaneous prediction for new observations; Bonferroni procedure
+# Simultaneous prediction for new observations; Bonferroni procedure s
 
 ```{r}
 ci.reg(airfreight.lm, data.frame(x = c(0, 1, 2)), type = "gn", alpha = al)
