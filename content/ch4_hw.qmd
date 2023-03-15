@@ -42,9 +42,60 @@ summary(airfreight.lm)
 Anova(airfreight.lm, type = "III")
 ```
 
-**3.5** Refer to **Airfreight breakage** Problem 1.21.
+**4.4** Refer to **Airfreight breakage** Problem 1.21.
 
-d.  Plot the residuals $e_{i}$ against $X_{i}$ to ascertain whether any departures from regression model (2.1) are evident. Wha tis your conclusion?
+Bonferroni 90% joint CIs for regression coefficients
+
+```{r}
+confint(airfreight.lm, level = 0.99)
+```
+
+**4.8** Refer to **Airfreight breakage** Problem 1.21.
+
+**a.**
+
+ - Simultaneous estimation of mean responses
+ - Working-Hotelling procedure
+
+```{r}
+al = 0.05
+
+(W = sqrt(2 * qf(1 - al, 2, nrow(airfreight) - 2)))
+
+ci.reg(airfreight.lm, data.frame(x = c(0, 1, 2)), type = "w", alpha = al)
+```
+ - Simultaneous estimation of mean responses 
+ - Bonferroni procedure
+ 
+```{r}
+g = 3
+
+(B = qt(1-al/2/g, nrow(airfreight) - 2))
+
+ci.reg(airfreight.lm, data.frame(x = c(0, 1, 2)), type = "b", alpha = al)
+```
+ 
+**b.** 
+
+**c.**
+
+ - Simultaneous prediction for new observations 
+ - Scheffe procedure
+ 
+```{r}
+al = 0.05
+
+(S = sqrt(g * qf(1 - al, g, nrow(airfreight) - 2)))
+
+ci.reg(airfreight.lm, data.frame(x = c(0 ,1, 2)), type = "s", alpha = al)
+```
+
+
+
+# Simultaneous prediction for new observations; Bonferroni procedure
+ci.reg(m,data.frame(Lot.Size=c(30,55,80)),type="gn",alpha=al)
+
+d.  Plot the residuals $e_{i}$ against $X_{i}$ to ascertain whether any departures from regression model (2.1) are evident. What is your conclusion?
 
 ```{r}
 plot(residuals(airfreight.lm) ~ airfreight$x,
