@@ -27,6 +27,7 @@ pairs(~m$residuals+m$fitted.values+X1+X2+I(X1*X2),data=Dwaine)
 plot(abs(m$residuals)~m$fitted.values,data=Dwaine)
 qqnorm(m$residuals); qqline(m$residuals)
 shapiro.test(m$residuals)
+
 library(nortest)
 lillie.test(m$residuals)
 

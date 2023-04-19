@@ -1,6 +1,7 @@
 ---
-title: "Chapter Six HW"
+title: "Chapter 6 HW"
 author: "James J. Herlan"
+format: pdf
 editor: visual
 ---
 
@@ -146,6 +147,4 @@ confint.lm(grocery.lm)
 ```{r}
 summary(grocery.lm)
 ```
-
-
 
