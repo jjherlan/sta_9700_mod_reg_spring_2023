@@ -1,6 +1,6 @@
 ---
 title: "Chapter Six HW"
-author: "James J. Herlan"
+author: "James J. Herlans"
 editor: visual
 ---
 
