@@ -42,269 +42,150 @@ summary(airfreight.lm)
 Anova(airfreight.lm, type = "III")
 ```
 
-**3.5** Refer to **Airfreight breakage** Problem 1.21.
+**5.6** Refer to **Airfreight breakage** Problem 1.21. Using matrix models,
 
-d.  Plot the residuals $e_{i}$ against $X_{i}$ to ascertain whether any departures from regression model (2.1) are evident. Wha tis your conclusion?
+Find (1) $Y{'}Y$, (2) $X{'}X$, (3) $X{'}Y$.
 
-```{r}
-plot(residuals(airfreight.lm) ~ airfreight$x,
-     xlab = "Predictor", ylab = "Residual")
-```
-
-Plot of residuals against fitted values
+**(1)**
 
 ```{r}
-plot(residuals(airfreight.lm) ~ fitted.values(airfreight.lm),
-     xlab = "Fitted value", ylab = "Residual")
-```
-
-**f. Prepare a time plot of the residuals. What information is provided by your plot?**
-
-Sequence plot of residuals
-
-```{r}
-plot(airfreight.lm$residuals,
-     type = "l",
-     xlab = "Production run",
-     ylab = "Residual")
-abline(h = 0)
+Y_1 = c(16, 9, 17, 12, 22, 13, 8, 15, 19, 11)
 ```
 
 ```{r}
-par(mfrow = c(2, 2))
-plot(airfreight.lm)
-```
-
-Plot of semistudentized residuals against fitted values
-
-```{r}
-plot(airfreight.lm$residuals/summary(airfreight.lm)$sigma ~ airfreight.lm$fitted.values, 
-     xlab = "Fitted value", ylab = "Semistudentized residual")
-```
-
-Normal probability plot of residuals
-
-```{r}
-qqnorm(airfreight.lm$residuals,
-       main = "Normal Q-Q plot of residuals") 
-qqline(airfreight.lm$residuals)
-```
-
-**d.** Plot the residuals $\e_{i}$ against $X_{i}$ to ascertain whether any departures from regression model (21.) are evident. What is your conclusion?
-
-```{r}
-par(mfrow = c(2,2))
-plot(airfreight.lm)
-```
-
-**f.** Prepare a time plot of the residuals. what information is provided by your plot?
-
-**3.13** Refer to **Copier maintenance** Problem 1.20.
-
-```{r}
-copier <- read.csv("Copier.csv")
+Y = matrix(Y_1)
 ```
 
 ```{r}
-copier
-```
-
-**a.** What are the alternative conclusions when testing for lack of fit of a linear regression function?
-
-The alternative conclusions when testing for a lack of fit of a linear regression function are the following:
-
-1.  The regression of the function is not linear.
-2.  The error terms do not have a constant variance.
-3.  The error terms are not independent.
-4.  The model fits all but one or a few outlier observations.
-5.  The error terms are not normally distrusted.
-6.  One or several important predictor variables have been omitted from the model.
-
-*Nonlinearity of Regression Function* *Nonconstancy of error variance* *Presence of Outliers* *Nonindependence of error terms*
-
-$H_{0}: E{Y} = \beta_{0} + \beta_{1} X$ $H_{a}: E{Y} \neq \beta_{0} + \beta_{1} X$
-
-**b.** Perform the test indicated in part (a). Control the risk of Type I error at 0.05. State the decision rule and conclusion.
-
-```{r}
-copier.lm <- lm(Y ~ X, data = copier)
-plot(Y ~ X, data = copier)
-abline(copier.lm, col="red")
-```
-
-*F*-test for lack of fit
-
-```{r}
-anova(copier.lm, lm(Y ~ factor(X), data = copier))
+Y
 ```
 
 ```{r}
-anova(copier.lm, data = copier)
+t(Y)%*%Y
 ```
 
-**RSS** = *SSPE* = 2797.7 **Sum of Sq** = **SSLF** = 618.72
+**(2.)**
 
-$F^{*} = (SSLF/c - 2) / (SSPE / n - c) = MSLF / MSPE$
-
-$F^{*} = (618.719/8) / (2797.66 / 35) = 0.967557$
-
-$F(0.95; 8; 35) = 2.21668$
-
-If $F^{*} \leq 2.21668$, conclude $H_{0}$, otherwise $H_{a}$. Conclude $H_{0}$
-
-$SSPE = \sum\sum (Y_{ij} - \hat Y_{j})^2$ $df = n - c$ $MSLF = SSLF/c - 2$ Number of groups minus 2
-
-$SSLF = \sum\sum (\hat Y_{j} - \hat Y_{ij})^2$ $df = c - 2$ $MSPE = SSPE/n - c$ Total observations minus number of groups
-
-**c.** **Sales growth.** A marketing researcher studied annual sales of a product that had been introduced 10 years ago. The data are as follows, where $X$ is the year (coded) and $Y$ is sales in thousands of units:
-
-| i:       | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  |
-|----------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
-| $X_{i}$: | 0   | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   |
-| $Y_{i}$: | 98  | 135 | 162 | 178 | 221 | 232 | 283 | 300 | 374 | 395 |
-
-: Question 3.17 Sales growth
-
-```{r, include = TRUE}
-sales <-
-  data.frame(
-  x = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9),
-  y = c(98, 135, 162, 178, 221, 232, 283, 300, 374, 395)
-  )
+```{r}
+X = cbind(rep(1, 10), airfreight$x)
 ```
 
 ```{r}
-sales
+t(X)%*%X
 ```
 
-**a.** Prepare a scatter plot of the data. Does a linear relation appear to be accurate?
+**(3.)**
 
 ```{r}
-sales.lm <- lm(y ~ x, data = sales)
+t(X)%*%Y
 ```
 
-```{r}
-plot(y ~ x, data = sales)
-abline(sales.lm, col="red")
-```
+**5.25** Refer to **Airfreight breakage** Problem 1.21 and 5.6.
 
-**b.** Use the Box-Cox procedure and standardization (3.36) to find an appropriate power transformation of $Y$. Evaluate $SSE$ for $\lambda = 0.3, 0.4, 0.5, 0.6, 0.7$.
+**a.** Using matrix methods, obtain the following:
 
-What transformation of Y is suggested?
+Find (1) $(X{'}X)^{-1}$, (2) $b$, (3) $e$, (4) $H$, (5) $SSE$, (6) $s^{2}b$, (7) $\hat Y_{h}$ when $X_{h} = 2$, (8) $s^{2}${$\hat Y_{h}$} when $X_{h} = 2$.
 
-Transformations on Y
-
-# Box-Cox transformation
+**(1)**
 
 ```{r}
-boxcox.sse(sales[,1],sales[,2],l=seq(-2,1,0.1))
-```
-
-| \lambda: | 0.3    | 0.4   | 0.5   | 0.6   | 0.7    |
-|----------|--------|-------|-------|-------|--------|
-| $SSE$:   | 1099.7 | 967.9 | 916.4 | 942.4 | 1044.2 |
-
-**c.** Use the transformation $Y' = \sqrt Y$ and obtain the estimated linear regression function for the transformed data.
-
-```{r}
-plot(y ~ x, data = sales)
+t(X)%*%X
 ```
 
 ```{r}
-sales.lm_sqrt <- lm(sqrt(y) ~ x, data = sales)
+solve(t(X)%*%X)
 ```
 
 ```{r}
-plot(sqrt(y) ~ x, data = sales)
+Y = as.matrix(airfreight$y)
+```
+
+**(2.)**
+
+```{r}
+(b=solve(t(X)%*%X)%*%(t(X)%*%Y))
+```
+```{r}
+MSE=7.5; (s2.b=MSE*solve(t(X)%*%X))
+```
+**(4.)**
+
+# Hat matrix
+
+```{r}
+(H=X%*%solve(t(X)%*%X)%*%t(X))
+```
+
+# Fitted values
+
+```{r}
+(Y.hat=X%*%b) 
+```
+
+**(4.)**
+
+```{r}
+H%*%Y
+```
+
+**(3.)**
+
+# Residuals
+
+```{r}
+(e=Y-Y.hat) 
 ```
 
 ```{r}
-par(mfrow = c(2, 2))
-plot(sales.lm_sqrt)
+(diag(10)-H)%*%Y
+```
+**(7.)**
+
+# Estimation of mean response
+
+```{r}
+X.h = c(1, 2)
 ```
 
 ```{r}
-summary(sales.lm_sqrt)
-```
-
-$Y = 1.07629X + 10.26093$
-
-```{r}
-plot(sales.lm$residuals ~ sales$x, xlab = "x", ylab = "Residual")
-abline(h = 0)
+(Yhat.h=X.h%*%b)
 ```
 
 ```{r}
-plot(sales.lm$residuals ~ sales$x, xlab = "x", ylab = "Residual")
+(s2.Yhat.h=MSE*t(X.h)%*%solve(t(X)%*%X)%*%X.h)
+```
+
+**b.** From part (a6), obtain the following: (1) $s^{2}b_{1}$, (2) $s^{2}b_{0}b_{1}$, (3) $s^{2}b_{0}$,
+
+
+```{r}
+MSE=7.5; (s2.b=MSE*solve(t(X)%*%X))
+```
+
+
+
+**c.**
+
+ ANOVA sums of squares
+
+```{r}
+J=matrix(rep(1,100),10,10)
 ```
 
 ```{r}
-plot(sales.lm$residuals ~ sales.lm$fitted.values, 
-     xlab = "Fitted value", ylab = "Residual")
-```
-
-**d.** Plot the estimated regression line and transformed data. Does the regression line appear to be a good fit to the transformed data?
-
-```{r}
-plot(sqrt(y) ~ x, data = sales)
-```
-
-**e.** Obtain the residuals and plot them against the fitted values. Also prepare a normal probability plot. What do your plots show?
-
-Residuals
-
-```{r}
-sales.lm_sqrt$residuals 
-```
-
-Plot of residuals against fitted values
-
-```{r}
-plot(residuals(sales.lm_sqrt) ~ fitted.values(sales.lm_sqrt),
-     xlab = "Fitted value", ylab = "Residual")
+(SSTO=t(Y)%*%(diag(10)-J/10)%*%Y)
 ```
 
 ```{r}
-fitted.values(sales.lm_sqrt)
+(SSE=t(Y)%*%(diag(10)-H)%*%Y) 
 ```
 
 ```{r}
-expected <- data.frame(actual = sales$y, predicted = predict(sales.lm_sqrt))
-expected
+(SSR=t(Y)%*%(H-J/10)%*%Y)
 ```
 
 ```{r}
-sales$Pred <- fitted(sales.lm_sqrt)
+anova(airfreight.lm)
 ```
 
-```{r}
-sales$Pred
-```
 
-```{r}
-sales$Resid <- sales$y - sales$Pred
-```
-
-```{r}
-sales$Resid
-```
-
-```{r}
-sales.sqrt_qq <- qqnorm(sales.lm_sqrt$residuals, main = "Normal Q-Q plot of residuals")
-```
-
-| $i$:              | 1     | 2     | 3     | 4     | 5     |
-|-------------------|-------|-------|-------|-------|-------|
-| $e_{i}$:          | -0.36 | 0.28  | 0.31  | -0.15 | 0.30  |
-| $\hat Y_{i}^{'}$: | 10.26 | 11.34 | 12.41 | 13.49 | 14.57 |
-| *Expected value*: | -0.24 | 0.14  | 0.36  | -0.14 | 0.24  |
-
-| $i$:              | 6     | 7     | 8     | 9     | 10    |
-|-------------------|-------|-------|-------|-------|-------|
-| $e_{i}$:          | -0.41 | 0.10  | 0.47  | 0.47  | -0.07 |
-| $\hat Y_{i}^{'}$: | 15.64 | 16.72 | 17.79 | 18.87 | 19.95 |
-| *Expected value*: | -0.36 | 0.04  | -0.56 | 0.56  | -0.04 |
-
-**f.** Express the estimated regression function in original units.
-
-$Y = (1.07629X + 10.26093)^{2}$
