@@ -66,7 +66,6 @@ qqnorm(grocery.lm$residuals)
 qqline(grocery.lm$residuals)
 ```
 
-
 ```{r}
 shapiro.test(grocery.lm$residuals)
 ```
@@ -106,10 +105,9 @@ plot(grocery$X2, grocery.resid,
 abline(0, 0)                  # the horizon
 ```
 
-*6.11* 
+*6.11*
 
-*a.* Test whether there is a regression relation, using level of significance 0.05. State the alternatives, decision rule, and conclusion. What does your result imply $B_{1}$, $B_{2}$, and $B_{3}$?
-What is the $P$-value of the test?
+*a.* Test whether there is a regression relation, using level of significance 0.05. State the alternatives, decision rule, and conclusion. What does your result imply $B_{1}$, $B_{2}$, and $B_{3}$? What is the $P$-value of the test?
 
 ```{r}
 summary(grocery.lm)
@@ -131,9 +129,9 @@ $F^{*}$ = 725,535/531.9 = 35.337
 
 $F(0.95; 3, 48)$ = 2.79806.
 
-If $F^{*}$ < 2.79806 conclude $H_{0}$, otherwise $H_{a}$.
+If $F^{*}$ \< 2.79806 conclude $H_{0}$, otherwise $H_{a}$.
 
-Conclude $H_{a}$. $P$-value = < 0.05.
+Conclude $H_{a}$. $P$-value = \< 0.05.
 
 **b.** Estimate $B_{1}$ and $B_{3}$ jointly by the Bonferroni procedure, using a 95 percent family confidence coefficient. Interpret your result.
 
@@ -146,6 +144,3 @@ confint.lm(grocery.lm)
 ```{r}
 summary(grocery.lm)
 ```
-
-
-
