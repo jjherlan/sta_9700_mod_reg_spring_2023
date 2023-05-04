@@ -1,0 +1,189 @@
+---
+title: "Chapter 7 HW"
+author: "James J. Herlans"
+format: pdf
+editor: visual
+---
+
+```{r, include = FALSE}
+require(rsq)
+require(lm.beta)
+require(tidyverse)
+require(car)
+require(ALSM)
+require(MASS)
+require(nortest)
+```
+
+```{r, include = TRUE}
+grocery <- read.csv('grocery.csv')
+```
+
+```{r}
+grocery
+```
+
+**7.4** Refer to **Grocery retailer** Problem 6.9.
+
+**a** Obtain analysis of variance table that decomposes the regression sum of squares into extra sum of squares associated with $X_{1}$; with $X_{3}$, given $X_{1}$; and with $X_{2}$, given $X_{1}$ and $X_{3}$.
+
+
+```{r}
+grocery.lm <- lm(Y ~ X1 + X2 + X3, data = grocery)
+```
+
+```{r}
+grocery.lm
+```
+
+```{r}
+summary(grocery.lm)
+```
+
+$SSR(X2|X1)$
+
+```{r}
+m1 <- lm(Y ~ X1 + X3 + X2, grocery)
+```
+
+```{r}
+anova(m1)
+```
+$SSR(X_{1}) = 136,366$,
+$SSR(X3|X1) = 2,033,566$,
+$SSR(X2|X1,X3) = 6,674$,
+$SSE(X1,X2,X3) = 985,530$, 
+$df$: 1, 1, 1, and 48
+
+**b.** Test whether $X_{2}$ can be dropped from the regression model given that $X_{1}$ and $X_{3}$ are retained. Use the $F$* test statistic and $\alpha$ = 0.05. State the alternatives, decision rule, and conclusion. What is the $P$-value of the test?
+
+$H_{0}$: $\beta_{2}$ = 0, $H_{a}$: $\beta_{2}$ $\neq$ 0,
+
+$SSR(X_{2}|X_{1},X_{3})$
+
+```{r}
+m2 <- lm(Y ~ X1 + X3, grocery)
+```
+
+```{r}
+anova(m1, m2)
+```
+$SSR(X_{2}|X_{1},X_{3}) = 6,674$,
+$SSE(X1,X2,X3) = 985,530$, 
+$F$* = (6,674/1) / (985,530/48) = 0.32491,
+$F(0.95; 1,17)$ = 4.04265,
+If $F^{*}$ $\leq$ 4.04265 conclude $H_{0}$, otherwise $H_{a}$,
+Conclude $H_{0}$, $P$-value = 0.5713
+
+**c.** Does $SSR(X_{1}) + SSR(X_{2} | X_{1})$ equal $SSR(X_{2}) + SSR(X_{1} | X_{2})$ here? Must this always be the case?
+
+Yes, $SSR(X_{1}) + SSR(X_{2} | X_{1})$ = 136,366 + 5,726 = 142,092;
+$SSR(X_{2}) + SSR(X_{1} | X_{2})$ = 11,394.9 + 130,697.1 = 142,092.
+
+
+**7.17** Refer to **Grocery retailer** Problem 6.9. 
+
+**a.** Transform the variables by means of the correlation transformation (7.44) and fit the standardized regression model (7.45).
+
+```{r}
+m3 <- lm.beta(m1)
+```
+
+```{r}
+summary(m3)
+```
+$\hat Y^{*}$ = 0.17472 $X_{1}^*$ - 0.04639 $X_{2}^*$ + 0.80786 $X_{3}^*$
+
+**b.** Calculate the coefficients of determination between all pairs of predictor variables. Is it meaningful here to consider the standardized regression coefficients to reflect the effect of one predictor when the others are held constant?
+
+$R^{2}_{12}$ = 0.0072;
+$R^{2}_{13}$ = 0.0021;
+$R^{2}_{22}$ = 0.0129
+
+**c.** Transform the estimated standardized regression coefficients by means of (7.53) back to the ones for the fitted regression model in the original variables. Verify that they are the same as the ones obtained in Problem 6.10a.
+
+$s_{Y}$ = 249.003;
+$s_{1}$ = 55274.6;
+$s_{2}$ = 0.87738;
+$s_{3}$ = 0.32260;
+
+$b_{1}$ = 249.003 / 55274.6 * 0.17472 = 0.0079
+
+```{r}
+(249.003 / 55274.6) * 0.17472
+```
+
+
+$b_{2}$ = 249.003 / 0.87738 * (-0.04639) = -13.16562
+
+```{r}
+(249.003 / 0.87738) * (-0.04639)
+```
+
+$b_{3}$ = 249.003 / 5.32260 * 0.80786 = 623.5572
+
+```{r}
+(249.003/5.32260) * 0.80786
+```
+
+$b_{0}$ = 4363.04 - 0.0079 * (302,693) + 13.16562 * (7.37058) - 623.5572 * (0.115385) = 4149.002
+
+```{r}
+4363.04 - (0.0079 * 302693) + (13.16562 * 7.37058) - (623.5572 * 0.115385)
+```
+
+**7.25** Refer to **Grocery retailer** Problem 6.9. 
+
+**a.** Fit first-order simple linear regression model (2.1) for relating total hours required to handle shipment ($Y$) to total cases shipped ($X_{1}$). State the fitted regression function.
+
+```{r}
+grocery2.lm <- lm(Y ~ X1, data = grocery)
+```
+
+```{r}
+summary(grocery2.lm)
+```
+$\hat Y$ = 4079.87 + 0.000935 $X_{1}$
+
+```{r}
+anova(grocery2.lm)
+```
+
+**b.** Compare the estimated regression coefficient for total cases shipped obtained in part (a) with the corresponding coefficient obtained in Problem 6.10a. What do you find?
+
+**c.** Does $SSR(X_{1})$ equal $SSR(X_{1} | X_{2})$ here? If not, is the difference substantial?
+
+No. 
+$SSR(X_{1}) = 136,366$;
+$SSR(X_{1} | X_{2}) = 130,697$
+
+**d.** Refer to the correlation matrix obtained in Problem 6.9c. What bearing does this have on your findings in parts (b) and (c)?
+
+$r_{12} = 0.5680$,
+
+$r_{12} = 0.5697$,
+
+$r_{23} = 0.6705$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

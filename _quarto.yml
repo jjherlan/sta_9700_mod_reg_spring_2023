@@ -59,6 +59,8 @@ website:
         text: Chapter Five HW
       - href: content/ch6_hw.qmd
         text: Chapter Six HW
+      - href: content/ch7_hw.qmd
+        text: Chapter Seven HW
 
 
 format:
